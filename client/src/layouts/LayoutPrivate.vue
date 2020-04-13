@@ -2,7 +2,7 @@
   <v-app>
     <app-bar :email="email" />
 
-    <nav-bar :loggedIn="loggedIn" @logout="logout" />
+    <nav-bar @logout="logout" />
 
     <v-content>
       <slot></slot>
@@ -15,33 +15,31 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 import AppBar from '@/components/AppBar.vue'
 import NavBar from '@/components/NavBar.vue'
 
 export default {
-  name: `LayoutDefault`,
+  name: `LayoutPrivate`,
+
   components: {
     AppBar,
     NavBar,
-  },
-
-  data() {
-    return {
-      user: null,
-    }
   },
 
   computed: {
     ...mapState('app', {
       email: state => state.profile.email,
     }),
-    ...mapGetters('app', ['loggedIn']),
   },
 
   methods: {
-    ...mapActions('app', ['logout']),
+    ...mapActions('app', ['logout', 'fetchProfile']),
+  },
+
+  created() {
+    this.fetchProfile()
   },
 }
 </script>

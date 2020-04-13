@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer app clipped v-if="loggedIn">
+  <v-navigation-drawer app clipped>
     <v-list>
       <v-list-item
         v-for="item in items"
@@ -34,16 +34,10 @@
 export default {
   name: 'NavBar',
 
-  props: {
-    loggedIn: {
-      type: Boolean,
-    },
-  },
-
   data() {
     return {
       items: [
-        { title: 'Balance', to: '/', icon: 'mdi-bank' },
+        { title: 'Dashboard', to: '/dashboard', icon: 'mdi-bank' },
         { title: 'Deposit', to: '/deposit', icon: 'mdi-currency-usd' },
         { title: 'Withdraw', to: '/withdraw', icon: 'mdi-currency-usd-off' },
         { title: 'Send', to: '/send', icon: 'mdi-send' },

@@ -1,5 +1,6 @@
+import { securedAxiosInstance } from '@/api'
+
 const state = {
-  loading: false,
   profile: {},
 }
 
@@ -8,16 +9,27 @@ const getters = {
 }
 
 const mutations = {
+  updateProfile(state, payload) {
+    state.profile = payload
+  },
+
   logout(state) {
     state.profile = {}
   },
 }
 
 const actions = {
-  logout({ commit }) {
-    localStorage.removeItem('token')
+  async fetchProfile({ commit }) {
+    const { data } = await securedAxiosInstance.get('/api/v1/profile')
 
+    commit('updateProfile', data)
+  },
+
+  logout({ commit }) {
     commit('logout')
+
+    localStorage.removeItem('token')
+    location.replace('/')
   },
 }
 

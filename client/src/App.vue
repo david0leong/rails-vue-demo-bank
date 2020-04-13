@@ -5,18 +5,18 @@
 </template>
 
 <script>
-import LayoutDefault from './layouts/LayoutDefault.vue'
-
-const defaultLayout = 'layout-default'
+import LayoutPublic from '@/layouts/LayoutPublic.vue'
+import LayoutPrivate from '@/layouts/LayoutPrivate.vue'
 
 export default {
   components: {
-    LayoutDefault,
+    LayoutPublic,
+    LayoutPrivate,
   },
 
   computed: {
     layout() {
-      return `${this.$route.meta.layout || defaultLayout}`
+      return this.$route.meta.private ? 'layout-private' : 'layout-public'
     },
   },
 }
