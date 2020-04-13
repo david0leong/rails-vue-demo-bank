@@ -7,7 +7,7 @@ import Signup from '@/views/Signup.vue'
 import Dashboard from '@/views/Dashboard.vue'
 import Deposit from '@/views/Deposit.vue'
 import Withdraw from '@/views/Withdraw.vue'
-import Send from '@/views/Send.vue'
+import Transfer from '@/views/Transfer.vue'
 
 Vue.use(VueRouter)
 
@@ -46,9 +46,9 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: '/send',
-    name: 'Send',
-    component: Send,
+    path: '/transfer',
+    name: 'Transfer',
+    component: Transfer,
     meta: { requiresAuth: true },
   },
 ]

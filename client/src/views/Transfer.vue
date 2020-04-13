@@ -6,9 +6,13 @@
           {{ error }}
         </v-alert>
 
+        <v-alert type="success" v-if="success">
+          Successfully sent money!
+        </v-alert>
+
         <v-card class="elevation-12">
           <v-toolbar color="primary" dark flat>
-            <v-toolbar-title>Signup</v-toolbar-title>
+            <v-toolbar-title>Transfer</v-toolbar-title>
           </v-toolbar>
 
           <v-card-text>
@@ -23,21 +27,12 @@
               />
 
               <v-text-field
-                label="Password"
-                name="password"
-                prepend-icon="lock"
-                type="password"
-                v-model="password"
-                :rules="passwordRules"
-              />
-
-              <v-text-field
-                label="Confirm Password"
-                name="confirmPassword"
-                prepend-icon="lock"
-                type="password"
-                v-model="confirmPassword"
-                :rules="confirmPasswordRules"
+                label="Amount"
+                name="amount"
+                prepend-icon="attach_money"
+                type="number"
+                v-model.number="amount"
+                :rules="amountRules"
               />
             </v-form>
           </v-card-text>
@@ -50,7 +45,7 @@
               color="primary"
               @click="submit"
             >
-              Signup
+              Submit
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -60,32 +55,29 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 import * as rules from '@/utils/validation'
 
 export default {
-  name: 'Signup',
+  name: 'Transfer',
 
   data() {
     return {
       loading: false,
+      success: false,
+      error: '',
       valid: true,
       email: '',
       emailRules: [rules.required('Email'), rules.email('Email')],
-      password: '',
-      passwordRules: [rules.required('Password')],
-      confirmPassword: '',
+      amount: 0,
+      amountRules: [rules.greaterThan('Amount', 0)],
     }
   },
 
-  computed: {
-    confirmPasswordRules() {
-      return [
-        () => this.password === this.confirmPassword || 'Password must match',
-      ]
-    },
-  },
-
   methods: {
+    ...mapMutations('app', ['updateProfile']),
+
     async submit() {
       if (!this.$refs.form.validate()) {
         return
@@ -94,16 +86,17 @@ export default {
       try {
         this.loading = true
         this.error = ''
+        this.success = false
 
-        const { data } = await this.$http.plain.post('/api/v1/signup', {
+        const { data } = await this.$http.secured.post('/api/v1/transfer', {
           email: this.email,
-          password: this.password,
+          amount: this.amount,
         })
 
-        localStorage.setItem('token', data.jwt)
-        this.$router.push({ name: 'Dashboard' })
+        this.success = true
+        this.updateProfile(data)
       } catch (error) {
-        this.error = 'Error in signing up'
+        this.error = 'Error in sending money'
       } finally {
         this.loading = false
       }

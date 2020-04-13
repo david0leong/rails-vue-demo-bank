@@ -7,7 +7,7 @@
         </v-alert>
 
         <v-alert type="success" v-if="success">
-          Successfully deposited!
+          Successfully deposited money!
         </v-alert>
 
         <v-card class="elevation-12">
@@ -35,8 +35,9 @@
               :disabled="!valid"
               color="primary"
               @click="submit"
-              >Submit</v-btn
             >
+              Submit
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>

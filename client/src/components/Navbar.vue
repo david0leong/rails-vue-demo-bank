@@ -40,7 +40,7 @@ export default {
         { title: 'Dashboard', to: '/dashboard', icon: 'account_balance' },
         { title: 'Deposit', to: '/deposit', icon: 'attach_money' },
         { title: 'Withdraw', to: '/withdraw', icon: 'money_off' },
-        { title: 'Send', to: '/send', icon: 'send' },
+        { title: 'Transfer', to: '/transfer', icon: 'send' },
       ],
     }
   },

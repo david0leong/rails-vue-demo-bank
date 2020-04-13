@@ -40,8 +40,9 @@
               :disabled="!valid"
               color="primary"
               @click="submit"
-              >Login</v-btn
             >
+              Login
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
