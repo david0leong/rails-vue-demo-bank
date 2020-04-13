@@ -50,17 +50,17 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '.transfer_money' do
+  describe '.transfer' do
     let(:from) { create(:user, { balance: 100 }) }
     let(:to) { create(:user, { balance: 200 }) }
     
     it 'should raise exception when amount is invalid' do
-      expect { User.transfer_money(from, to, -1) }.to raise_error('Invalid amount')
-      expect { User.transfer_money(from, to, 'abc') }.to raise_error('Invalid amount')
+      expect { User.transfer(from, to, -1) }.to raise_error('Invalid amount')
+      expect { User.transfer(from, to, 'abc') }.to raise_error('Invalid amount')
     end
 
     it 'should do nothing when one account gets invalid after transaction' do
-      expect { User.transfer_money(from, to, 101) }.to raise_error
+      expect { User.transfer(from, to, 101) }.to raise_error
 
       from.reload
       to.reload
@@ -70,7 +70,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'should transfer money from source account to destination account' do
-      User.transfer_money(from, to, 50)
+      User.transfer(from, to, 50)
 
       from.reload
       to.reload
