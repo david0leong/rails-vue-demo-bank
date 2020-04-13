@@ -16,7 +16,7 @@ export default {
 
   computed: {
     layout() {
-      return this.$route.meta.private ? 'layout-private' : 'layout-public'
+      return this.$route.meta.requiresAuth ? 'layout-private' : 'layout-public'
     },
   },
 }

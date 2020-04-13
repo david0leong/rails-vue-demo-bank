@@ -1,17 +1,15 @@
 <template>
   <div class="home">
-    <HelloWorld />
+    <h1>Demo Bank</h1>
+
+    <p>
+      This is a demo bank app built with Ruby on Rails, Vue.js and Material UI.
+    </p>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
   name: 'Home',
-  components: {
-    HelloWorld,
-  },
 }
 </script>

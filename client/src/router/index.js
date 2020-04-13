@@ -13,25 +13,22 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-    meta: { public: true },
   },
   {
     path: '/login',
     name: 'Login',
     component: Login,
-    meta: { public: true },
   },
   {
     path: '/signup',
     name: 'Signup',
     component: Signup,
-    meta: { public: true },
   },
   {
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard,
-    meta: { private: true },
+    meta: { requiresAuth: true },
   },
 ]
 
@@ -42,15 +39,15 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const { private } = to.meta
+  const { requiresAuth } = to.meta
   const token = localStorage.getItem('token')
 
-  if (private && !token) {
+  if (requiresAuth && !token) {
     next({
       name: 'Login',
       query: { redirect: to.fullPath },
     })
-  } else if (!private && token) {
+  } else if (!requiresAuth && token) {
     next({ name: 'Dashboard' })
   } else {
     next()

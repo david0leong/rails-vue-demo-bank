@@ -1,8 +1,6 @@
 <template>
   <v-app-bar app clipped-left color="primary" dark>
-    <div class="d-flex align-center">
-      <v-toolbar-title>Demo Bank</v-toolbar-title>
-    </div>
+    <v-toolbar-title>Demo Bank</v-toolbar-title>
 
     <v-spacer></v-spacer>
 

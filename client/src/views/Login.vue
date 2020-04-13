@@ -2,6 +2,10 @@
   <v-container class="fill-height" fluid>
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="4">
+        <v-alert type="error" v-if="error">
+          {{ error }}
+        </v-alert>
+
         <v-card class="elevation-12">
           <v-toolbar color="primary" dark flat>
             <v-toolbar-title>Login</v-toolbar-title>
@@ -32,7 +36,11 @@
 
           <v-card-actions>
             <v-spacer />
-            <v-btn :disabled="!valid" color="primary" @click="submit"
+            <v-btn
+              :loading="loading"
+              :disabled="!valid"
+              color="primary"
+              @click="submit"
               >Login</v-btn
             >
           </v-card-actions>
@@ -51,6 +59,7 @@ export default {
   data() {
     return {
       loading: false,
+      error: '',
       valid: true,
       email: '',
       emailRules: [rules.required('Email'), rules.email('Email')],
@@ -61,7 +70,13 @@ export default {
 
   methods: {
     async submit() {
-      if (this.$refs.form.validate()) {
+      if (!this.$refs.form.validate()) {
+        return
+      }
+
+      try {
+        this.loading = true
+
         const { data } = await this.$http.plain.post('/api/v1/token', {
           auth: {
             email: this.email,
@@ -70,8 +85,11 @@ export default {
         })
 
         localStorage.setItem('token', data.jwt)
-
         this.$router.push(this.$route.query.redirect || { name: 'Dashboard' })
+      } catch (error) {
+        this.error = 'Email and password does not match!'
+      } finally {
+        this.loading = false
       }
     },
   },
