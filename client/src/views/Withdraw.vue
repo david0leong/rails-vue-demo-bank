@@ -7,12 +7,12 @@
         </v-alert>
 
         <v-alert type="success" v-if="success">
-          Successfully deposited!
+          Successfully withdrew!
         </v-alert>
 
         <v-card class="elevation-12">
           <v-toolbar color="primary" dark flat>
-            <v-toolbar-title>Deposit</v-toolbar-title>
+            <v-toolbar-title>Withdraw</v-toolbar-title>
           </v-toolbar>
 
           <v-card-text>
@@ -76,14 +76,14 @@ export default {
         this.error = ''
         this.success = false
 
-        const { data } = await this.$http.secured.post('/api/v1/deposit', {
+        const { data } = await this.$http.secured.post('/api/v1/withdraw', {
           amount: this.amount,
         })
 
         this.success = true
         this.updateProfile(data)
       } catch (error) {
-        this.error = 'Error in depositing money'
+        this.error = 'Error in withdrawing money'
       } finally {
         this.loading = false
       }
