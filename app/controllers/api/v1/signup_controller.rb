@@ -16,10 +16,6 @@ class Api::V1::SignupController < ApplicationController
     end
 
     def auth_token
-      if @user.respond_to? :to_token_payload
-        Knock::AuthToken.new payload: @user.to_token_payload
-      else
-        Knock::AuthToken.new payload: { sub: @user.id }
-      end
+      Knock::AuthToken.new payload: @user.to_token_payload
     end
 end
