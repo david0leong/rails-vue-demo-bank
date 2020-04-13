@@ -1,24 +1,35 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Demo bank application with features of depositing, withdrawing and transfering money
 
-Things you may want to cover:
+# Online demo
 
-* Ruby version
+https://digi-bank.herokuapp.com/
 
-* System dependencies
+# How to run locally
 
-* Configuration
+1. Install gems
 
-* Database creation
+```
+$ bundle isntall
+```
 
-* Database initialization
+2. Create database
 
-* How to run the test suite
+```
+$ rails db:create
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+3. Run migration
 
-* Deployment instructions
+```
+$ rails db:migration
+```
 
-* ...
+4. Start the app
+
+```
+$ forman start -f Procfile.dev
+```
+
+App starts at http://localhost:8080
