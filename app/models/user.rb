@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  after_initialize :default_values
+
   has_secure_password
 
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
@@ -29,5 +31,9 @@ class User < ApplicationRecord
 
   def validate_amount(amount)
     raise 'Invalid amount' if (!amount.is_a? Numeric) || amount < 0
+  end
+
+  def default_values
+    self.balance = 0 if self.balance.nil?
   end
 end
