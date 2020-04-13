@@ -6,29 +6,24 @@
           {{ error }}
         </v-alert>
 
+        <v-alert type="success" v-if="success">
+          Successfully deposited!
+        </v-alert>
+
         <v-card class="elevation-12">
           <v-toolbar color="primary" dark flat>
-            <v-toolbar-title>Login</v-toolbar-title>
+            <v-toolbar-title>Deposit</v-toolbar-title>
           </v-toolbar>
 
           <v-card-text>
             <v-form ref="form" v-model="valid" lazy-validation>
               <v-text-field
-                label="Email"
-                name="email"
-                prepend-icon="person"
-                type="email"
-                v-model.trim="email"
-                :rules="emailRules"
-              />
-
-              <v-text-field
-                label="Password"
-                name="password"
-                prepend-icon="lock"
-                type="password"
-                v-model="password"
-                :rules="passwordRules"
+                label="Amount"
+                name="amount"
+                prepend-icon="attach_money"
+                type="number"
+                v-model.number="amount"
+                :rules="amountRules"
               />
             </v-form>
           </v-card-text>
@@ -40,7 +35,7 @@
               :disabled="!valid"
               color="primary"
               @click="submit"
-              >Login</v-btn
+              >Submit</v-btn
             >
           </v-card-actions>
         </v-card>
@@ -50,24 +45,27 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 import * as rules from '@/utils/validation'
 
 export default {
-  name: 'Login',
+  name: 'Deposit',
 
   data() {
     return {
       loading: false,
+      success: false,
       error: '',
       valid: true,
-      email: '',
-      emailRules: [rules.required('Email'), rules.email('Email')],
-      password: '',
-      passwordRules: [rules.required('Password')],
+      amount: 0,
+      amountRules: [rules.greaterThan('Amount', 0)],
     }
   },
 
   methods: {
+    ...mapMutations('app', ['updateProfile']),
+
     async submit() {
       if (!this.$refs.form.validate()) {
         return
@@ -76,18 +74,16 @@ export default {
       try {
         this.loading = true
         this.error = ''
+        this.success = false
 
-        const { data } = await this.$http.plain.post('/api/v1/token', {
-          auth: {
-            email: this.email,
-            password: this.password,
-          },
+        const { data } = await this.$http.secured.post('/api/v1/deposit', {
+          amount: this.amount,
         })
 
-        localStorage.setItem('token', data.jwt)
-        this.$router.push(this.$route.query.redirect || { name: 'Dashboard' })
+        this.success = true
+        this.updateProfile(data)
       } catch (error) {
-        this.error = 'Email and password does not match!'
+        this.error = 'Error in depositing amount'
       } finally {
         this.loading = false
       }

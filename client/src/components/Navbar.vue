@@ -19,7 +19,7 @@
 
       <v-list-item @click="$emit('logout')">
         <v-list-item-icon>
-          <v-icon>mdi-logout</v-icon>
+          <v-icon>power_settings_new</v-icon>
         </v-list-item-icon>
 
         <v-list-item-content>
@@ -37,10 +37,10 @@ export default {
   data() {
     return {
       items: [
-        { title: 'Dashboard', to: '/dashboard', icon: 'mdi-bank' },
-        { title: 'Deposit', to: '/deposit', icon: 'mdi-currency-usd' },
-        { title: 'Withdraw', to: '/withdraw', icon: 'mdi-currency-usd-off' },
-        { title: 'Send', to: '/send', icon: 'mdi-send' },
+        { title: 'Dashboard', to: '/dashboard', icon: 'account_balance' },
+        { title: 'Deposit', to: '/deposit', icon: 'attach_money' },
+        { title: 'Withdraw', to: '/withdraw', icon: 'money_off' },
+        { title: 'Send', to: '/send', icon: 'send' },
       ],
     }
   },

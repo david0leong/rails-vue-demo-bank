@@ -5,6 +5,9 @@ import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
 import Signup from '@/views/Signup.vue'
 import Dashboard from '@/views/Dashboard.vue'
+import Deposit from '@/views/Deposit.vue'
+import Withdraw from '@/views/Withdraw.vue'
+import Send from '@/views/Send.vue'
 
 Vue.use(VueRouter)
 
@@ -28,6 +31,24 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/deposit',
+    name: 'Deposit',
+    component: Deposit,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/withdraw',
+    name: 'Withdraw',
+    component: Withdraw,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/send',
+    name: 'Send',
+    component: Send,
     meta: { requiresAuth: true },
   },
 ]

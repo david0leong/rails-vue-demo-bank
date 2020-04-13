@@ -92,6 +92,7 @@ export default {
 
       try {
         this.loading = true
+        this.error = ''
 
         const { data } = await this.$http.plain.post('/api/v1/signup', {
           email: this.email,
