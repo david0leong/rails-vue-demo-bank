@@ -1,21 +1,31 @@
 <template>
-  <div class="LayoutDefault">
-    <nav class="LayoutDefault__nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/about">About</router-link>
+  <v-app>
+    <app-bar />
 
-      <div class="LayoutDefault__user">{{ user ? user.name : `Loading...` }}</div>
-    </nav>
-    <main class="LayoutDefault__main">
-      <slot />
-    </main>
-    <footer class="LayoutDefault__footer">&copy; Awesome Company</footer>
-  </div>
+    <nav-bar />
+
+    <v-content>
+      <v-container fluid>
+        <slot></slot>
+      </v-container>
+    </v-content>
+
+    <v-footer app>
+      <span>&copy; 2020</span>
+    </v-footer>
+  </v-app>
 </template>
 
 <script>
+import AppBar from '@/components/AppBar.vue'
+import NavBar from '@/components/NavBar.vue'
+
 export default {
   name: `LayoutDefault`,
+  components: {
+    AppBar,
+    NavBar,
+  },
 
   data() {
     return {
@@ -32,33 +42,4 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.LayoutDefault {
-  max-width: 42em;
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: 1em;
-  padding-left: 1em;
-
-  &__nav {
-    padding-top: 1em;
-    padding-bottom: 1em;
-    border-bottom: 1px solid #c0c0c0;
-  }
-
-  &__user {
-    float: right;
-  }
-
-  &__main {
-    padding-top: 1.5em;
-    padding-bottom: 2em;
-  }
-
-  &__footer {
-    padding-top: 1em;
-    padding-bottom: 1em;
-    border-top: 1px solid #c0c0c0;
-  }
-}
-</style>
+<style lang="scss"></style>
