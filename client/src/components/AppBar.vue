@@ -6,18 +6,24 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn text to="/signup">
-      Sign up
-    </v-btn>
+    <template v-if="email">
+      <span>{{ email }}</span>
+    </template>
 
-    <v-btn text to="/login">
-      Log in
-    </v-btn>
+    <template v-else>
+      <v-btn text to="/signup">Sign up</v-btn>
+      <v-btn text to="/login">Log in</v-btn>
+    </template>
   </v-app-bar>
 </template>
 
 <script>
 export default {
   name: `AppBar`,
+  props: {
+    email: {
+      type: String,
+    },
+  },
 }
 </script>

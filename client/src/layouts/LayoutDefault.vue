@@ -1,13 +1,11 @@
 <template>
   <v-app>
-    <app-bar />
+    <app-bar :email="email" />
 
-    <nav-bar />
+    <nav-bar :loggedIn="loggedIn" @logout="logout" />
 
     <v-content>
-      <v-container fluid>
-        <slot></slot>
-      </v-container>
+      <slot></slot>
     </v-content>
 
     <v-footer app>
@@ -17,6 +15,8 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapActions } from 'vuex'
+
 import AppBar from '@/components/AppBar.vue'
 import NavBar from '@/components/NavBar.vue'
 
@@ -33,11 +33,15 @@ export default {
     }
   },
 
-  created() {
-    // Simulate fetching user data.
-    setTimeout(() => {
-      this.user = { name: `John Doe` }
-    }, 2000)
+  computed: {
+    ...mapState('app', {
+      email: state => state.profile.email,
+    }),
+    ...mapGetters('app', ['loggedIn']),
+  },
+
+  methods: {
+    ...mapActions('app', ['logout']),
   },
 }
 </script>

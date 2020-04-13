@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer app clipped>
+  <v-navigation-drawer app clipped v-if="loggedIn">
     <v-list>
       <v-list-item
         v-for="item in items"
@@ -16,6 +16,16 @@
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+
+      <v-list-item @click="$emit('logout')">
+        <v-list-item-icon>
+          <v-icon>mdi-logout</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>Log out</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -23,6 +33,12 @@
 <script>
 export default {
   name: 'NavBar',
+
+  props: {
+    loggedIn: {
+      type: Boolean,
+    },
+  },
 
   data() {
     return {
