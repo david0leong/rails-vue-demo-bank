@@ -1,0 +1,27 @@
+{
+  "name": "rails-vue-demo-bank",
+  "version": "1.0.0",
+  "description": "Demo bank built with Rails and Vue",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "cd client && npm install && npm run build && cd ..",
+    "deploy": "cp -a client/build/. public/",
+    "postinstall": "npm run build && npm run deploy && echo 'Client built!'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/david0leong/rails-vue-demo-bank.git"
+  },
+  "author": "David Leong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/david0leong/rails-vue-demo-bank/issues"
+  },
+  "homepage": "https://github.com/david0leong/rails-vue-demo-bank#readme",
+  "engines": {
+    "node": "12.16.x"
+  }
+}
