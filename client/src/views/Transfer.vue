@@ -2,13 +2,9 @@
   <v-container class="fill-height" fluid>
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="4">
-        <v-alert type="error" v-if="error">
-          {{ error }}
-        </v-alert>
+        <v-alert type="error" v-if="error">{{ error }}</v-alert>
 
-        <v-alert type="success" v-if="success">
-          Successfully sent money!
-        </v-alert>
+        <v-alert type="success" v-if="success">Successfully sent money!</v-alert>
 
         <v-card class="elevation-12">
           <v-toolbar color="primary" dark flat>
@@ -39,14 +35,7 @@
 
           <v-card-actions>
             <v-spacer />
-            <v-btn
-              :loading="loading"
-              :disabled="!valid"
-              color="primary"
-              @click="submit"
-            >
-              Submit
-            </v-btn>
+            <v-btn :loading="loading" :disabled="!valid" color="primary" @click="submit">Submit</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -55,7 +44,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 import * as rules from '@/utils/validation'
 
@@ -69,10 +58,20 @@ export default {
       error: '',
       valid: true,
       email: '',
-      emailRules: [rules.required('Email'), rules.email('Email')],
+      emailRules: [
+        rules.required('Email'),
+        rules.email('Email'),
+        v => v !== this.myEmail || `Email must be different with yours`,
+      ],
       amount: 0,
       amountRules: [rules.greaterThan('Amount', 0)],
     }
+  },
+
+  computed: {
+    ...mapState('app', {
+      myEmail: state => state.profile.email,
+    }),
   },
 
   methods: {
