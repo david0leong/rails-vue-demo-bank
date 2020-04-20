@@ -59,6 +59,10 @@ RSpec.describe User, type: :model do
       expect { User.transfer(from, to, 'abc') }.to raise_error('Invalid amount')
     end
 
+    it 'should raise exception when trying to transfer to ownself' do
+      expect { User.transfer(from, from, 100) }.to raise_error('Cannot transfer to yourself')
+    end
+
     it 'should do nothing when one account gets invalid after transaction' do
       expect { User.transfer(from, to, 101) }.to raise_error
 

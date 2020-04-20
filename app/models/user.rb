@@ -7,6 +7,8 @@ class User < ApplicationRecord
   validates :balance, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
   def self.transfer(from, to, amount)
+    raise 'Cannot transfer to yourself' if from.email == to.email
+
     User.transaction do
       from.withdraw(amount)
       to.deposit(amount)
