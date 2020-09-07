@@ -5,14 +5,14 @@ import store from '@/store'
 const plainAxiosInstance = axios.create({
   withCredentials: true,
   headers: {
-    Accepet: 'application/json',
+    Accept: 'application/json',
   },
 })
 
 const securedAxiosInstance = axios.create({
   withCredentials: true,
   headers: {
-    Accepet: 'application/json',
+    Accept: 'application/json',
   },
 })
 
